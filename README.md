@@ -1,4 +1,4 @@
-# ☀️ SmartDesk [aplicativo] ☀️
+# ☀️ Ticket management app ☀️
 
 Código fonte do aplicativo mobile de suporte de T.I., para priorização inteligente e gerenciamento de chamados.
 
@@ -19,6 +19,8 @@ Para começar a contribuir neste projeto, é necessário que você clone este re
 <br>
 
 2. **Instalar o aplicativo Expo Go em seu celular**
+
+    - https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&pli=1
 
 <br>
 
