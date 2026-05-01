@@ -10,7 +10,7 @@ Descreva brevemente o que este PR faz.
 - [ ] ♻️ Refatoração
 - [ ] 🚀 Performance
 - [ ] 🧪 Testes
-- [x] ⚙️ Configuração/Infraestrutura
+- [ ] ⚙️ Configuração/Infraestrutura
 
 ## 🧪 Testes
 
