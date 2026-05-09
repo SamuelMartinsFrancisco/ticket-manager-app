@@ -44,3 +44,5 @@ app-example
 
 # Jest coverage directory
 coverage/
+
+.env

@@ -1,52 +1,33 @@
-import { Stack, useRouter, useSegments } from "expo-router";
-import { useEffect } from "react";
+import { Stack } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
-import { AuthProvider, useAuthContext } from "../contexts/AuthContext";
+import { AuthProvider, useAuthContext } from "../contexts/authContext";
 
-// ─── Proteção de rotas ───────────────────────────────────────────────────────
-
-function RouteGuard() {
+function RootLayoutNav() {
   const { isAuthenticated, isLoading } = useAuthContext();
-  const segments = useSegments();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (isLoading) return;
-
-    const inAuthGroup = segments[0] === "login";
-
-    if (!isAuthenticated && !inAuthGroup) {
-      // Não autenticado → vai para login
-      router.replace("/login");
-    } else if (isAuthenticated && inAuthGroup) {
-      // Já autenticado → vai para home
-      router.replace("/");
-    }
-  }, [isAuthenticated, isLoading, segments]);
-
-  // Enquanto restaura sessão, exibe spinner
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#5A8DEE" />
+        <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="login" />
+      {isAuthenticated ? (
+        <Stack.Screen name="index" />
+      ) : (
+        <Stack.Screen name="(auth)/login" />
+      )}
     </Stack>
   );
 }
 
-// ─── Layout raiz ─────────────────────────────────────────────────────────────
-
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <RouteGuard />
+      <RootLayoutNav />
     </AuthProvider>
   );
 }
