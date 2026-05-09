@@ -8,15 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../../contexts/authContext";
+import { AuthService } from "../../services/auth/auth.service";
+
+const authService = new AuthService();
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [remember, setRemember] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
-  const { login } = useAuth();
+  const { setToken } = useAuthContext();
 
   async function handleLogin() {
     if (!email.trim() || !senha.trim()) {
@@ -26,11 +27,14 @@ export default function Login() {
 
     setIsLoading(true);
     try {
-      await login({ email: email.trim(), password: senha });
-      // O RouteGuard em _layout.tsx redireciona automaticamente após o login
+      const { access_token } = await authService.login({ email: email.trim(), password: senha });
+      setToken(access_token);
     } catch (error: any) {
-      const message =
-        error?.response?.data?.message ?? "Verifique suas credenciais e tente novamente.";
+      const isUnauthorizedException = error?.status === 401;
+      const message = isUnauthorizedException
+        ? "Verifique suas credenciais e tente novamente."
+        : error?.message;
+
       Alert.alert("Erro ao entrar", message);
     } finally {
       setIsLoading(false);
@@ -67,19 +71,6 @@ export default function Login() {
           value={senha}
           onChangeText={setSenha}
         />
-
-        {/* OPTIONS */}
-        <View style={styles.options}>
-          <TouchableOpacity
-            style={styles.remember}
-            onPress={() => setRemember(!remember)}
-          >
-            <View style={[styles.checkbox, remember && styles.checked]} />
-            <Text style={styles.rememberText}>Lembrar-me</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.forgot}>Esqueceu a senha?</Text>
-        </View>
 
         {/* BUTTON */}
         <TouchableOpacity

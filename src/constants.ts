@@ -1,0 +1,1 @@
+export const STORE_USER_TOKEN_KEY = "ticket-manager-user-token"

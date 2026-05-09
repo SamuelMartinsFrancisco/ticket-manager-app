@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import { sanitizeString } from '../data-sanitizers/string-sanitizer';
 
-export class secureStoreService {
+export class SecureStoreService {
   async save(key: string, value: string) {
     const sanitizedKey = sanitizeString(key);
     const sanitizedValue = sanitizeString(value);
@@ -27,5 +27,15 @@ export class secureStoreService {
     }
 
     return value;
+  }
+
+  async removeValueFor(key: string) {
+    const sanitizedKey = sanitizeString(key);
+
+    if (!sanitizedKey) {
+      throw new Error('The key param is required to remove a value from Secure Store, and must be a non-empty string');
+    }
+
+    await SecureStore.deleteItemAsync(key);
   }
 }

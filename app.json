@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "smartDesk",
-    "slug": "smartDesk",
+    "name": "ticket-manager",
+    "slug": "ticket-manager",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "smartdesk",
+    "scheme": "ticket-manager",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -50,6 +50,11 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "root": "src/app"
+      }
     }
   }
 }
